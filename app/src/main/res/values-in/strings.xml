@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Katalog Film</string>
+    <string name="name_movie">Nama Movie</string>
+    <string name="lorem">lorem</string>
+    <string name="movie">Film</string>
+    <string name="tv_show">Acara TV</string>
+
+    <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="imagemovie">film gambar</string>
+    <string name="sinopsis">Sinopsis</string>
+    <string name="title_activity_detailtvshow">Detail Acara TV</string>
+    <string name="porductionmovie">Tanggal Rilis : %1$s \n Rata-Rata Vote: %2$f \n Bahasa Asli: %3$s</string>
+    <string name="porductiontvshow">Tanggal Pertama Siaran : %1$s \n Rata-Rata Vote: %2$f \n Bahasa Asli: %3$s</string>
+    <string name="favorite">Favorit</string>
+    <string name="deletefavorite">Hapus Favorit</string>
+    <string name="search_hint">Cari</string>
+    <string name="appwidget_text">Tabel Favorite</string>
+    <string name="add_widget">Tambah Widget</string>
+    <string name="empty_text">Kosong</string>
+    <string name="release_reminder">Pengingat Release</string>
+    <string name="hint_release">Pengingat Film Keluar Hari ini</string>
+    <string name="daily_reminder">Pengingar Harian</string>
+    <string name="hint_daily_reminder">Mengingatkan Membuka App</string>
+    <string name="setting">Pengaturan</string>
+    <string name="release_message">Katalog FIlm Kehilangan kamu</string>
+</resources>
