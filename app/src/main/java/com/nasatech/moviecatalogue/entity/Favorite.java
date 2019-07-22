@@ -1,48 +1,51 @@
 package com.nasatech.moviecatalogue.entity;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Favorite implements Parcelable {
-    public static final Parcelable.Creator<Favorite> CREATOR = new Parcelable.Creator<Favorite>() {
-        @Override
-        public Favorite createFromParcel(Parcel source) {
-            return new Favorite(source);
-        }
-
-        @Override
-        public Favorite[] newArray(int size) {
-            return new Favorite[size];
-        }
-    };
     private int ID;
     private int TypeFavorite;
     private int IDEntity;
     private String Title;
     private String Description;
     private String Date;
-    private String vote;
     private String Image;
+    private String Vote_Average;
 
-    public Favorite() {
+    public String getVote_Average() {
+        return Vote_Average;
     }
 
-    protected Favorite(Parcel in) {
-        this.ID = in.readInt();
-        this.TypeFavorite = in.readInt();
-        this.Title = in.readString();
-        this.Description = in.readString();
-        this.Date = in.readString();
-        this.Image = in.readString();
+    public void setVote_Average(String vote_Average) {
+        Vote_Average = vote_Average;
     }
 
-    public String getVote() {
-        return vote;
+    public Favorite(int ID,int TypeFavorite,int IDEntity,String Title, String Description, String Date, String vote, String Image) {
+        this.ID = ID;
+        this.TypeFavorite = TypeFavorite;
+        this.IDEntity = IDEntity;
+        this.Title = Title;
+        this.Description = Description;
+        this.Date = Date;
+        this.Image = Image;
     }
 
-    public void setVote(String vote) {
-        this.vote = vote;
+    public Favorite(Cursor cursor){
+        this.ID = ID;
+        this.TypeFavorite = TypeFavorite;
+        this.IDEntity = IDEntity;
+        this.Title = Title;
+        this.Description = Description;
+        this.Date = Date;
+        this.Image = Image;
     }
+
+    public Favorite(){
+
+    }
+
 
     public int getIDEntity() {
         return IDEntity;
@@ -109,9 +112,34 @@ public class Favorite implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.ID);
         dest.writeInt(this.TypeFavorite);
+        dest.writeInt(this.IDEntity);
         dest.writeString(this.Title);
         dest.writeString(this.Description);
         dest.writeString(this.Date);
         dest.writeString(this.Image);
+        dest.writeString(this.Vote_Average);
     }
+
+    protected Favorite(Parcel in) {
+        this.ID = in.readInt();
+        this.TypeFavorite = in.readInt();
+        this.IDEntity = in.readInt();
+        this.Title = in.readString();
+        this.Description = in.readString();
+        this.Date = in.readString();
+        this.Image = in.readString();
+        this.Vote_Average = in.readString();
+    }
+
+    public static final Creator<Favorite> CREATOR = new Creator<Favorite>() {
+        @Override
+        public Favorite createFromParcel(Parcel source) {
+            return new Favorite(source);
+        }
+
+        @Override
+        public Favorite[] newArray(int size) {
+            return new Favorite[size];
+        }
+    };
 }

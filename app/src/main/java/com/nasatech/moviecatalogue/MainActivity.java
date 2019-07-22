@@ -7,8 +7,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.ContentObserver;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -32,7 +37,9 @@ import com.nasatech.moviecatalogue.fragment.MovieList;
 import com.nasatech.moviecatalogue.fragment.TvShowList;
 import com.nasatech.moviecatalogue.widget.UpdateWidgetService;
 
-public class MainActivity extends AppCompatActivity {
+import java.lang.ref.WeakReference;
+
+public class MainActivity extends AppCompatActivity{
     static final int SETTING_SET_UP = 1;  // The request code
     private FavoriteHelper favoriteHelper;
     private ViewPager viewPager;
@@ -43,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static int jobId = 1001;
     private static int SCHEDULE_OF_PERIOD = 1000;
+
+    private static HandlerThread handlerThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

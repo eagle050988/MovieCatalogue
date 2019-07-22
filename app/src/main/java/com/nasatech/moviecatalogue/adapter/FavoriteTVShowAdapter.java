@@ -96,7 +96,7 @@ public class FavoriteTVShowAdapter extends RecyclerView.Adapter<FavoriteTVShowAd
             }
 
             tvDateRelease.setText(checkTextIfNull(item.getDate()));
-            tvVote.setText(checkTextIfNull("" + item.getTypeFavorite()));
+            tvVote.setText(checkTextIfNull("" + item.getVote_Average()));
         }
 
         String checkTextIfNull(String text) {

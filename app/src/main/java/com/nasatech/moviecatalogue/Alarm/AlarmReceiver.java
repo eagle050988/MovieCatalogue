@@ -27,6 +27,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
@@ -63,7 +64,11 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private void ReleaseMovie(final Context context, final int notifid) {
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "https://api.themoviedb.org/3/movie/upcoming?api_key=92665d966955c636c7b210277e79880f&language=en-US&page=1";
+        String url = "https://api.themoviedb.org/3/discover/movie?api_key=92665d966955c636c7b210277e79880f&language=en-US";
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        final String datenow = df.format(c);
 
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
@@ -74,7 +79,10 @@ public class AlarmReceiver extends BroadcastReceiver {
                     JSONArray list = responseObject.getJSONArray("results");
                     for (int i = 0; i < list.length(); i++) {
                         JSONObject movie = list.getJSONObject(i);
-                        showAlarmNotification(context, movie.getString("title"), movie.getString("title") + " is comming!", movie.getInt("id"));
+                        String ReleaseDate = movie.getString("release_date");
+
+                        if (ReleaseDate.equals(datenow))
+                            showAlarmNotification(context, movie.getString("title"), movie.getString("title") + " is comming!", movie.getInt("id"));
                     }
                 } catch (Exception e) {
                     Log.d("Exception", e.getMessage());

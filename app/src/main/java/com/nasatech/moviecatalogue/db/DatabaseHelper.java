@@ -12,7 +12,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             DatabaseFavorite.FavoriteColumns.TITLE + " TEXT NOT NULL, " +
             DatabaseFavorite.FavoriteColumns.DESCRIPTION + " TEXT NOT NULL, " +
             DatabaseFavorite.FavoriteColumns.DATE + " TEXT NOT NULL, " +
-            DatabaseFavorite.FavoriteColumns.IMAGE + " TEXT NOT NULL)";
+            DatabaseFavorite.FavoriteColumns.IMAGE + " TEXT NOT NULL, " +
+            DatabaseFavorite.FavoriteColumns.VOTE_COUNT + " TEXT NOT NULL)";
 
     private static final int DATABASE_VERSION = 1;
     public static String DATABASE_NAME = "dbfavoriteapp";
