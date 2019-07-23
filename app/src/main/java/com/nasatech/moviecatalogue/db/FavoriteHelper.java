@@ -21,7 +21,9 @@ import static com.nasatech.moviecatalogue.db.DatabaseFavorite.FavoriteColumns.ID
 import static com.nasatech.moviecatalogue.db.DatabaseFavorite.FavoriteColumns.IMAGE;
 import static com.nasatech.moviecatalogue.db.DatabaseFavorite.FavoriteColumns.TITLE;
 import static com.nasatech.moviecatalogue.db.DatabaseFavorite.FavoriteColumns.Type;
+import static com.nasatech.moviecatalogue.db.DatabaseFavorite.FavoriteColumns.VOTE_COUNT;
 import static com.nasatech.moviecatalogue.db.DatabaseFavorite.TABLE_FAVORITE;
+import static com.nasatech.moviecatalogue.db.DatabaseHelper.SQL_CREATE_TABLE_NOTE;
 
 public class FavoriteHelper {
     static final int TYPE_MOVIE = 1;
@@ -73,6 +75,7 @@ public class FavoriteHelper {
                 favorite.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
                 favorite.setDate(cursor.getString(cursor.getColumnIndexOrThrow(DATE)));
                 favorite.setImage(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
+                favorite.setVote_Average(cursor.getString(cursor.getColumnIndexOrThrow(VOTE_COUNT)));
 
                 arrayList.add(favorite);
                 cursor.moveToNext();
@@ -98,6 +101,7 @@ public class FavoriteHelper {
                 favorite.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
                 favorite.setDate(cursor.getString(cursor.getColumnIndexOrThrow(DATE)));
                 favorite.setImage(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
+                favorite.setVote_Average(cursor.getString(cursor.getColumnIndexOrThrow(VOTE_COUNT)));
 
                 arrayList.add(favorite);
                 cursor.moveToNext();
@@ -125,6 +129,7 @@ public class FavoriteHelper {
                 favorite.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
                 favorite.setDate(cursor.getString(cursor.getColumnIndexOrThrow(DATE)));
                 favorite.setImage(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
+                favorite.setVote_Average(cursor.getString(cursor.getColumnIndexOrThrow(VOTE_COUNT)));
 
                 arrayList.add(favorite);
                 cursor.moveToNext();
@@ -149,6 +154,7 @@ public class FavoriteHelper {
         args.put(DESCRIPTION, movie.getOverview());
         args.put(DATE, movie.getRelease_date());
         args.put(IMAGE, movie.getPoster_path());
+        args.put(VOTE_COUNT, String.valueOf(movie.getVote_average()));
         return database.insert(DATABASE_TABLE, null, args);
     }
 
@@ -165,6 +171,7 @@ public class FavoriteHelper {
         args.put(DESCRIPTION, tvShow.getOverview());
         args.put(DATE, tvShow.getFirst_air_date());
         args.put(IMAGE, tvShow.getPoster_path());
+        args.put(VOTE_COUNT, String.valueOf(tvShow.getVote_average()));
         return database.insert(DATABASE_TABLE, null, args);
     }
 

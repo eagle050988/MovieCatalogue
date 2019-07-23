@@ -12,5 +12,6 @@ public class DatabaseFavorite {
         public static String DESCRIPTION = "description";
         public static String DATE = "date";
         public static String IMAGE = "image";
+        public static String VOTE_COUNT = "vote_count";
     }
 }

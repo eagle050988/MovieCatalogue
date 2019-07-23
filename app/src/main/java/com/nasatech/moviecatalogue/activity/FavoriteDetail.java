@@ -52,7 +52,7 @@ public class FavoriteDetail extends AppCompatActivity {
         }
 
         tvDateRelease.setText(checkTextIfNull(favorite.getDate()));
-        tvVote.setText(checkTextIfNull("" + favorite.getTypeFavorite()));
+        tvVote.setText(checkTextIfNull("" + favorite.getVote_Average()));
         tvOverview.setText(checkTextIfNull(favorite.getDescription()));
     }
 
