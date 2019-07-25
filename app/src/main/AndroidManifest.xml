@@ -28,6 +28,12 @@
 
         <activity android:name=".activity.SettingActivity"/>
         <activity android:name=".activity.FavoriteDetail" />
+        <provider
+            android:authorities="com.nasatech.moviecatalogue"
+            android:name=".provider.FavoriteProvider"
+            android:exported="true"
+            android:readPermission="com.nasatech.moviecatalogue.READ_DATABASE"
+            android:writePermission="com.nasatech.moviecatalogue.WRITE_DATABASE" />
         <activity android:name=".activity.FavoriteActivity" />
         <activity
             android:name=".activity.DetailTVShow"

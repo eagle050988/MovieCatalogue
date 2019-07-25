@@ -8,11 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
-import android.database.Cursor;
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.HandlerThread;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -37,21 +35,19 @@ import com.nasatech.moviecatalogue.fragment.MovieList;
 import com.nasatech.moviecatalogue.fragment.TvShowList;
 import com.nasatech.moviecatalogue.widget.UpdateWidgetService;
 
-import java.lang.ref.WeakReference;
+import static com.nasatech.moviecatalogue.provider.DatabaseContract.FavoriteColumns.CONTENT_URI;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     static final int SETTING_SET_UP = 1;  // The request code
+    private static int jobId = 1001;
+    private static int SCHEDULE_OF_PERIOD = 1000;
+    private static HandlerThread handlerThread;
     private FavoriteHelper favoriteHelper;
     private ViewPager viewPager;
     private TabLayout.Tab ActiveTab;
     private TabLayout tabLayout;
     private AlarmReceiver alarmReceiver;
     private Boolean Daily, Release;
-
-    private static int jobId = 1001;
-    private static int SCHEDULE_OF_PERIOD = 1000;
-
-    private static HandlerThread handlerThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +83,17 @@ public class MainActivity extends AppCompatActivity{
         }
         JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
         jobScheduler.schedule(builder.build());
+        getContentResolver().registerContentObserver(CONTENT_URI, true, new ContentObserver(null) {
+            @Override
+            public void onChange(boolean selfChange) {
+                super.onChange(selfChange);
+            }
+
+            @Override
+            public void onChange(boolean selfChange, Uri uri) {
+                super.onChange(selfChange, uri);
+            }
+        });
     }
 
     @Override

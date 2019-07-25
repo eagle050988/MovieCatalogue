@@ -23,11 +23,10 @@ import static com.nasatech.moviecatalogue.db.DatabaseFavorite.FavoriteColumns.TI
 import static com.nasatech.moviecatalogue.db.DatabaseFavorite.FavoriteColumns.Type;
 import static com.nasatech.moviecatalogue.db.DatabaseFavorite.FavoriteColumns.VOTE_COUNT;
 import static com.nasatech.moviecatalogue.db.DatabaseFavorite.TABLE_FAVORITE;
-import static com.nasatech.moviecatalogue.db.DatabaseHelper.SQL_CREATE_TABLE_NOTE;
 
 public class FavoriteHelper {
-    static final int TYPE_MOVIE = 1;
-    static final int TYPE_TVSHOW = 2;
+    public static final int TYPE_MOVIE = 1;
+    public static final int TYPE_TVSHOW = 2;
     private static final String DATABASE_TABLE = TABLE_FAVORITE;
     private static DatabaseHelper databaseHelper;
     private static FavoriteHelper INSTANCE;
@@ -59,56 +58,68 @@ public class FavoriteHelper {
             database.close();
     }
 
-    public ArrayList<Favorite> getAllMovies() {
-        ArrayList<Favorite> arrayList = new ArrayList<>();
+//    public ArrayList<Favorite> getAllMovies() {
+//        ArrayList<Favorite> arrayList = new ArrayList<>();
+//
+//        Cursor cursor = database.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE " + Type + " = " + TYPE_MOVIE, null);
+//        cursor.moveToFirst();
+//        Favorite favorite;
+//        if (cursor.getCount() > 0) {
+//            do {
+//                favorite = new Favorite();
+//                favorite.setID(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
+//                favorite.setTypeFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(Type)));
+//                favorite.setIDEntity(cursor.getInt(cursor.getColumnIndexOrThrow(IDEntity)));
+//                favorite.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
+//                favorite.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
+//                favorite.setDate(cursor.getString(cursor.getColumnIndexOrThrow(DATE)));
+//                favorite.setImage(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
+//                favorite.setVote_Average(cursor.getString(cursor.getColumnIndexOrThrow(VOTE_COUNT)));
+//
+//                arrayList.add(favorite);
+//                cursor.moveToNext();
+//            } while (!(cursor.isAfterLast()));
+//        }
+//        cursor.close();
+//        return arrayList;
+//    }
 
+    public Cursor getAllMovies() {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE " + Type + " = " + TYPE_MOVIE, null);
-        cursor.moveToFirst();
-        Favorite favorite;
-        if (cursor.getCount() > 0) {
-            do {
-                favorite = new Favorite();
-                favorite.setID(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
-                favorite.setTypeFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(Type)));
-                favorite.setIDEntity(cursor.getInt(cursor.getColumnIndexOrThrow(IDEntity)));
-                favorite.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
-                favorite.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
-                favorite.setDate(cursor.getString(cursor.getColumnIndexOrThrow(DATE)));
-                favorite.setImage(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
-                favorite.setVote_Average(cursor.getString(cursor.getColumnIndexOrThrow(VOTE_COUNT)));
 
-                arrayList.add(favorite);
-                cursor.moveToNext();
-            } while (!(cursor.isAfterLast()));
-        }
-        cursor.close();
-        return arrayList;
+        return cursor;
     }
 
-    public ArrayList<Favorite> getAllTVShow() {
-        ArrayList<Favorite> arrayList = new ArrayList<>();
+//    public ArrayList<Favorite> getAllTVShow() {
+//        ArrayList<Favorite> arrayList = new ArrayList<>();
+//
+//        Cursor cursor = database.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE " + Type + " = " + TYPE_TVSHOW, null);
+//        cursor.moveToFirst();
+//        Favorite favorite;
+//        if (cursor.getCount() > 0) {
+//            do {
+//                favorite = new Favorite();
+//                favorite.setID(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
+//                favorite.setTypeFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(Type)));
+//                favorite.setIDEntity(cursor.getInt(cursor.getColumnIndexOrThrow(IDEntity)));
+//                favorite.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
+//                favorite.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
+//                favorite.setDate(cursor.getString(cursor.getColumnIndexOrThrow(DATE)));
+//                favorite.setImage(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
+//                favorite.setVote_Average(cursor.getString(cursor.getColumnIndexOrThrow(VOTE_COUNT)));
+//
+//                arrayList.add(favorite);
+//                cursor.moveToNext();
+//            } while (!(cursor.isAfterLast()));
+//        }
+//        cursor.close();
+//        return arrayList;
+//    }
 
+    public Cursor getAllTVShow() {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE " + Type + " = " + TYPE_TVSHOW, null);
-        cursor.moveToFirst();
-        Favorite favorite;
-        if (cursor.getCount() > 0) {
-            do {
-                favorite = new Favorite();
-                favorite.setID(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
-                favorite.setTypeFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(Type)));
-                favorite.setIDEntity(cursor.getInt(cursor.getColumnIndexOrThrow(IDEntity)));
-                favorite.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
-                favorite.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
-                favorite.setDate(cursor.getString(cursor.getColumnIndexOrThrow(DATE)));
-                favorite.setImage(cursor.getString(cursor.getColumnIndexOrThrow(IMAGE)));
-                favorite.setVote_Average(cursor.getString(cursor.getColumnIndexOrThrow(VOTE_COUNT)));
 
-                arrayList.add(favorite);
-                cursor.moveToNext();
-            } while (!(cursor.isAfterLast()));
-        }
-        cursor.close();
-        return arrayList;
+        return cursor;
     }
 
     public ArrayList<Favorite> getAllItem() {
@@ -198,5 +209,42 @@ public class FavoriteHelper {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE " + IDEntity + " = " + id, null);
 
         return cursor.getCount();
+    }
+
+    public Cursor queryByIdProvider(String id) {
+        return database.query(DATABASE_TABLE, null
+                , IDEntity + " = ?"
+                , new String[]{id}
+                , null
+                , null
+                , null
+                , null);
+    }
+
+    public Cursor queryProvider() {
+        return database.query(DATABASE_TABLE
+                , null
+                , null
+                , null
+                , null
+                , null
+                , _ID + " ASC");
+    }
+
+    public long insertProvider(ContentValues values) {
+        final int result = cekData(values.getAsInteger(IDEntity));
+
+        if (result > 0)
+            return -3;
+
+        return database.insert(DATABASE_TABLE, null, values);
+    }
+
+    public int updateProvider(String id, ContentValues values) {
+        return database.update(DATABASE_TABLE, values, IDEntity + " = ?", new String[]{id});
+    }
+
+    public int deleteProvider(String id) {
+        return database.delete(DATABASE_TABLE, IDEntity + " = ?", new String[]{id});
     }
 }

@@ -5,6 +5,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Favorite implements Parcelable {
+    public static final Creator<Favorite> CREATOR = new Creator<Favorite>() {
+        @Override
+        public Favorite createFromParcel(Parcel source) {
+            return new Favorite(source);
+        }
+
+        @Override
+        public Favorite[] newArray(int size) {
+            return new Favorite[size];
+        }
+    };
     private int ID;
     private int TypeFavorite;
     private int IDEntity;
@@ -14,6 +25,42 @@ public class Favorite implements Parcelable {
     private String Image;
     private String Vote_Average;
 
+    public Favorite(int ID, int TypeFavorite, int IDEntity, String Title, String Description, String Date, String vote, String Image) {
+        this.ID = ID;
+        this.TypeFavorite = TypeFavorite;
+        this.IDEntity = IDEntity;
+        this.Title = Title;
+        this.Description = Description;
+        this.Date = Date;
+        this.Image = Image;
+        this.Vote_Average = vote;
+    }
+
+    public Favorite(Cursor cursor) {
+        this.ID = ID;
+        this.TypeFavorite = TypeFavorite;
+        this.IDEntity = IDEntity;
+        this.Title = Title;
+        this.Description = Description;
+        this.Date = Date;
+        this.Image = Image;
+    }
+
+    public Favorite() {
+
+    }
+
+    protected Favorite(Parcel in) {
+        this.ID = in.readInt();
+        this.TypeFavorite = in.readInt();
+        this.IDEntity = in.readInt();
+        this.Title = in.readString();
+        this.Description = in.readString();
+        this.Date = in.readString();
+        this.Image = in.readString();
+        this.Vote_Average = in.readString();
+    }
+
     public String getVote_Average() {
         return Vote_Average;
     }
@@ -21,31 +68,6 @@ public class Favorite implements Parcelable {
     public void setVote_Average(String vote_Average) {
         Vote_Average = vote_Average;
     }
-
-    public Favorite(int ID,int TypeFavorite,int IDEntity,String Title, String Description, String Date, String vote, String Image) {
-        this.ID = ID;
-        this.TypeFavorite = TypeFavorite;
-        this.IDEntity = IDEntity;
-        this.Title = Title;
-        this.Description = Description;
-        this.Date = Date;
-        this.Image = Image;
-    }
-
-    public Favorite(Cursor cursor){
-        this.ID = ID;
-        this.TypeFavorite = TypeFavorite;
-        this.IDEntity = IDEntity;
-        this.Title = Title;
-        this.Description = Description;
-        this.Date = Date;
-        this.Image = Image;
-    }
-
-    public Favorite(){
-
-    }
-
 
     public int getIDEntity() {
         return IDEntity;
@@ -119,27 +141,4 @@ public class Favorite implements Parcelable {
         dest.writeString(this.Image);
         dest.writeString(this.Vote_Average);
     }
-
-    protected Favorite(Parcel in) {
-        this.ID = in.readInt();
-        this.TypeFavorite = in.readInt();
-        this.IDEntity = in.readInt();
-        this.Title = in.readString();
-        this.Description = in.readString();
-        this.Date = in.readString();
-        this.Image = in.readString();
-        this.Vote_Average = in.readString();
-    }
-
-    public static final Creator<Favorite> CREATOR = new Creator<Favorite>() {
-        @Override
-        public Favorite createFromParcel(Parcel source) {
-            return new Favorite(source);
-        }
-
-        @Override
-        public Favorite[] newArray(int size) {
-            return new Favorite[size];
-        }
-    };
 }

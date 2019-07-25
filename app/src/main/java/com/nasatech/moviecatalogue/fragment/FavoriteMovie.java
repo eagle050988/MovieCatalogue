@@ -1,6 +1,7 @@
 package com.nasatech.moviecatalogue.fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,10 @@ import com.nasatech.moviecatalogue.db.FavoriteHelper;
 import com.nasatech.moviecatalogue.entity.Favorite;
 
 import java.util.ArrayList;
+
+import static com.nasatech.moviecatalogue.db.FavoriteHelper.TYPE_MOVIE;
+import static com.nasatech.moviecatalogue.helper.MappingHelper.mapCursorToArrayList;
+import static com.nasatech.moviecatalogue.provider.DatabaseContract.FavoriteColumns.CONTENT_URI;
 
 public class FavoriteMovie extends Fragment {
     private ArrayList<Favorite> FavoriteMovies = new ArrayList<>();
@@ -44,7 +49,9 @@ public class FavoriteMovie extends Fragment {
         rvCategory.setHasFixedSize(true);
 
         if (savedInstanceState == null) {
-            FavoriteMovies = favoriteHelper.getAllMovies();
+            Cursor result = getContext().getContentResolver().query(CONTENT_URI, null, String.valueOf(TYPE_MOVIE), null, null);
+//            FavoriteMovies = favoriteHelper.getAllMovies();
+            FavoriteMovies = mapCursorToArrayList(result);
         } else {
             FavoriteMovies = savedInstanceState.getParcelableArrayList("favoritemovie");
         }

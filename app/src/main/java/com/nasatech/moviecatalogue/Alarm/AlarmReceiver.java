@@ -83,6 +83,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
                         if (ReleaseDate.equals(datenow))
                             showAlarmNotification(context, movie.getString("title"), movie.getString("title") + " is comming!", movie.getInt("id"));
+                        else
+                            showAlarmNotification(context, movie.getString("title"), "No New Movie Released today", notifid);
                     }
                 } catch (Exception e) {
                     Log.d("Exception", e.getMessage());
